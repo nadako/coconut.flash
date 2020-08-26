@@ -1,0 +1,10 @@
+--class-path src
+--class-path src-playground
+--main Main
+--library coconut.data
+--library coconut.ui
+--library coconut.diffing
+--macro coconut.flash.macros.Setup.run()
+
+--swf bin/main.swf
+--cmd start bin/main.swf
