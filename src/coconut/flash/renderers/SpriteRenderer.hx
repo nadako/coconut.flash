@@ -3,13 +3,11 @@ package coconut.flash.renderers;
 import coconut.diffing.Key;
 import coconut.diffing.NodeType;
 import coconut.diffing.VNode;
+import coconut.flash.renderers.Basic;
 import flash.display.Sprite;
-import flash.events.MouseEvent;
 
-typedef SpriteAttr = {
+typedef SpriteAttr = DisplayObjectContainerAttr & {
 	@:optional var buttonMode:Bool;
-	@:optional var mouseChildren:Bool;
-	@:optional var onClick:MouseEvent->Void;
 }
 
 class SpriteRenderer implements NodeType<SpriteAttr, Sprite> {
@@ -28,9 +26,7 @@ class SpriteRenderer implements NodeType<SpriteAttr, Sprite> {
 	}
 
 	public function update(w:Sprite, old:SpriteAttr, nu:SpriteAttr) {
-		w.buttonMode = nu.buttonMode;
-		w.mouseChildren = nu.mouseChildren;
-		if (old.onClick != null) w.removeEventListener(MouseEvent.CLICK, old.onClick);
-		if (nu.onClick != null) w.addEventListener(MouseEvent.CLICK, nu.onClick);
+		setDisplayObjectContainerAttrs(w, old, nu);
+		w.buttonMode = opt(nu.buttonMode, false);
 	}
 }

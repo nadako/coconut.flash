@@ -29,7 +29,7 @@ private class FlashCursor implements Cursor<DisplayObject> {
 		this.childIndex = childIndex;
 	}
 
-	public function insert(real:DisplayObject) {
+	public function insert(real:DisplayObject):Bool {
 		var inserted = real.parent != container;
 		container.addChildAt(real, childIndex);
 		if (inserted) {
@@ -65,6 +65,27 @@ private class FlashCursor implements Cursor<DisplayObject> {
 	}
 }
 
+private class NoopCursor implements Cursor<DisplayObject> {
+	function new() {}
+	public static final instance = new NoopCursor();
+
+	public function insert(real:DisplayObject):Bool {
+		return false;
+	}
+
+	public function step():Bool {
+		return false;
+	}
+
+	public function delete():Bool {
+		return false;
+	}
+
+	public function current():DisplayObject {
+		return null;
+	}
+}
+
 private class FlashBackend implements Applicator<DisplayObject> {
 	static final PLACEHOLDER:RenderResult = new Shape();
 
@@ -84,7 +105,10 @@ private class FlashBackend implements Applicator<DisplayObject> {
 	}
 
 	public function traverseChildren(parent:DisplayObject) {
-		return new FlashCursor(cast parent, 0);
+		return switch (Std.downcast(parent, DisplayObjectContainer)) {
+			case null: NoopCursor.instance; // TODO: is it right that coconut calls this on non-container objects?
+			case container: new FlashCursor(container, 0);
+		};
 	}
 
 	public function placeholder(target):RenderResult {
