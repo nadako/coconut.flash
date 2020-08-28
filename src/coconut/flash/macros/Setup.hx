@@ -5,9 +5,10 @@ import haxe.macro.Compiler;
 
 class Setup {
 	static function run() {
-		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.SpriteRenderer))", "flash.display.Sprite");
-		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.BitmapRenderer))", "flash.display.Bitmap");
-		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.TextFieldRenderer))", "flash.text.TextField");
+		var toplevelPackage = #if openfl "openfl" #else "flash" #end;
+		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.SpriteRenderer))", toplevelPackage + ".display.Sprite");
+		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.BitmapRenderer))", toplevelPackage + ".display.Bitmap");
+		Compiler.addMetadata("@:hxx.delegate((_ : coconut.flash.renderers.TextFieldRenderer))", toplevelPackage + ".text.TextField");
 	}
 }
 #end

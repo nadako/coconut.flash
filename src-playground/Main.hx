@@ -62,8 +62,22 @@ class MyWindow extends View {
 }
 
 function main() {
-	flash.Lib.current.stage.scaleMode = NO_SCALE;
-	Renderer.mount(flash.Lib.current, <MyWindow/>);
+	#if openfl
+	var app = new lime.app.Application();
+	app.create({windows: [{
+		element: js.Browser.document.getElementById("main"),
+		background: 0xFFFFFF,
+		allowHighDPI: true,
+		resizable: true,
+		depthBuffer: false,
+		stencilBuffer: true
+	}]});
+	app.exec();
+	#end
+
+	var stage = flash.Lib.current.stage;
+	stage.scaleMode = NO_SCALE;
+	Renderer.mount(stage, <MyWindow/>);
 }
 
 function loadImage(url:String):Future<BitmapData> {

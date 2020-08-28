@@ -1,0 +1,15 @@
+--class-path src
+--class-path src-playground
+--main Main
+--library openfl
+--remap flash:openfl
+--define html5
+--define no-deprecation-warnings
+--library coconut.data
+--library coconut.ui
+--library coconut.diffing
+--macro coconut.flash.macros.Setup.run()
+
+--debug
+--js bin/main.js
+--define js-es=6
