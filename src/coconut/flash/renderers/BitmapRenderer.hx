@@ -4,6 +4,7 @@ import coconut.diffing.Key;
 import coconut.diffing.NodeType;
 import coconut.diffing.VNode;
 import coconut.flash.renderers.Basic;
+import coconut.ui.Ref;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.PixelSnapping;
@@ -19,7 +20,7 @@ class BitmapRenderer implements NodeType<BitmapAttr, Bitmap> {
 
 	static final instance:NodeType<BitmapAttr, Bitmap> = new BitmapRenderer();
 
-	public static inline function fromHxx(hxxMeta:{?ref:Bitmap->Void, ?key:Key}, attr:BitmapAttr, ?children:Children):RenderResult {
+	public static inline function fromHxx(hxxMeta:{?ref:Ref<Bitmap>, ?key:Key}, attr:BitmapAttr, ?children:Children):RenderResult {
 		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
 	}
 

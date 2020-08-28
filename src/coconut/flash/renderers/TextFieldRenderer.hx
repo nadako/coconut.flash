@@ -4,6 +4,7 @@ import coconut.diffing.Key;
 import coconut.diffing.NodeType;
 import coconut.diffing.VNode;
 import coconut.flash.renderers.Basic;
+import coconut.ui.Ref;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
@@ -22,7 +23,7 @@ class TextFieldRenderer implements NodeType<TextFieldAttr, TextField> {
 
 	static final instance:NodeType<TextFieldAttr, TextField> = new TextFieldRenderer();
 
-	public static inline function fromHxx(hxxMeta:{?ref:TextField->Void, ?key:Key}, attr:TextFieldAttr, ?children:Children):RenderResult {
+	public static inline function fromHxx(hxxMeta:{?ref:Ref<TextField>, ?key:Key}, attr:TextFieldAttr, ?children:Children):RenderResult {
 		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
 	}
 

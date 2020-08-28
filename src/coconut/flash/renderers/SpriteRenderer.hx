@@ -4,6 +4,7 @@ import coconut.diffing.Key;
 import coconut.diffing.NodeType;
 import coconut.diffing.VNode;
 import coconut.flash.renderers.Basic;
+import coconut.ui.Ref;
 import flash.display.Sprite;
 
 typedef SpriteAttr = DisplayObjectContainerAttr & {
@@ -15,7 +16,7 @@ class SpriteRenderer implements NodeType<SpriteAttr, Sprite> {
 
 	static final instance:NodeType<SpriteAttr, Sprite> = new SpriteRenderer();
 
-	public static inline function fromHxx(hxxMeta:{?ref:Sprite->Void, ?key:Key}, attr:SpriteAttr, ?children:Children):RenderResult {
+	public static inline function fromHxx(hxxMeta:{?ref:Ref<Sprite>, ?key:Key}, attr:SpriteAttr, ?children:Children):RenderResult {
 		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
 	}
 
