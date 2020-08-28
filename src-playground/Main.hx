@@ -1,4 +1,3 @@
-import coconut.flash.Children;
 import coconut.flash.Renderer;
 import coconut.flash.View;
 import flash.display.Bitmap;
@@ -12,13 +11,13 @@ class Button extends View {
 
 	@:state var hovered:Bool = false;
 
-	var textField:TextField;
-	var bitmap:Bitmap;
+	@:ref var textField:TextField;
+	@:ref var bitmap:Bitmap;
 
 	function render() '
 		<Sprite mouseChildren=${false} buttonMode=${true} onClick=${onClick()} onRollOver=${hovered = true} onRollOut=${hovered = false}>
-			<Bitmap ref=${v -> bitmap = v} bitmapData=${new BitmapData(1, 1, false, if (hovered) 0xFF0000 else 0xAAAAAA)}/>
-			<TextField ref=${v -> textField = v} text=${label} autoSize=${LEFT} x=${5} y=${5} />
+			<Bitmap ref=${bitmap} bitmapData=${new BitmapData(1, 1, false, if (hovered) 0xFF0000 else 0xAAAAAA)}/>
+			<TextField ref=${textField} text=${label} autoSize=${LEFT} x=${5} y=${5} />
 		</Sprite>
 	';
 
@@ -30,6 +29,12 @@ class Button extends View {
 
 function main() {
 	Renderer.mount(flash.Lib.current,
-		<Button label="Press me" onClick=${trace("YO")}/>
+		<HBox spacing=${10}>
+			<VBox spacing=${5}>
+				<Button label="Press me" onClick=${trace("YO")}/>
+				<Button label="Touch me" onClick=${trace("Ah")}/>
+			</VBox>
+			<Button label="Press me" onClick=${trace("YO")}/>
+		</HBox>
 	);
 }
