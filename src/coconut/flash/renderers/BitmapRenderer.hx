@@ -25,9 +25,9 @@ class BitmapRenderer implements NodeType<BitmapAttr, Bitmap> {
 	}
 
 	public function create(a:BitmapAttr):Bitmap {
-		var sprite = new Bitmap();
-		update(sprite, {}, a);
-		return sprite;
+		var bitmap = new Bitmap();
+		update(bitmap, {}, a);
+		return bitmap;
 	}
 
 	public function update(w:Bitmap, old:BitmapAttr, nu:BitmapAttr) {
