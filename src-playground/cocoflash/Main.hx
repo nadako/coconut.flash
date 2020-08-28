@@ -1,3 +1,5 @@
+package cocoflash;
+
 import coconut.flash.Renderer;
 import coconut.flash.View;
 import flash.display.Bitmap;

@@ -1,8 +1,10 @@
+package cocoflash;
+
 import coconut.flash.Children;
 import coconut.flash.View;
 import flash.display.Sprite;
 
-class VBox extends View {
+class HBox extends View {
 	@:attribute var spacing:Float = 0;
 	@:attribute var children:Children;
 
@@ -17,11 +19,11 @@ class VBox extends View {
 	';
 
 	override function viewDidRender() {
-		var yPosition = 0.0;
+		var xPosition = 0.0;
 		for (i in 0...container.numChildren) {
 			var child = container.getChildAt(i);
-			child.y = yPosition;
-			yPosition += child.height + spacing;
+			child.x = xPosition;
+			xPosition += child.width + spacing;
 		}
 	}
 }

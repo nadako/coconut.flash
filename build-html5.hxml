@@ -1,6 +1,6 @@
 --class-path src
 --class-path src-playground
---main Main
+--main cocoflash.Main
 --library openfl
 --remap flash:openfl
 --define html5
