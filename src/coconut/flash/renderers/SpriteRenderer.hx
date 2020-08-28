@@ -21,6 +21,7 @@ class SpriteRenderer implements NodeType<SpriteAttr, Sprite> {
 	}
 
 	public function create(a:SpriteAttr):Sprite {
+		trace('Creating sprite', a);
 		var sprite = new Sprite();
 		update(sprite, {}, a);
 		return sprite;

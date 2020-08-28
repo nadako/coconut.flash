@@ -28,6 +28,7 @@ class TextFieldRenderer implements NodeType<TextFieldAttr, TextField> {
 	}
 
 	public function create(a:TextFieldAttr):TextField {
+		trace('Creating text', a);
 		var textField = new TextField();
 		update(textField, {}, a);
 		return textField;

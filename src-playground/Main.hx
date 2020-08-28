@@ -2,8 +2,12 @@ import coconut.flash.Renderer;
 import coconut.flash.View;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.Loader;
 import flash.display.Sprite;
+import flash.events.Event;
+import flash.net.URLRequest;
 import flash.text.TextField;
+import tink.core.Future;
 
 class Button extends View {
 	@:attribute var label:String;
@@ -27,14 +31,49 @@ class Button extends View {
 	}
 }
 
-function main() {
-	Renderer.mount(flash.Lib.current,
+class Image extends View {
+	@:attribute var src:String;
+
+	@:skipCheck
+	@:state var pixels:BitmapData = null;
+
+	function render() '
+		<Bitmap bitmapData=$pixels />
+	';
+
+	function viewDidMount() {
+		untilUnmounted(loadImage(src).handle(bmp -> pixels = bmp));
+	}
+}
+
+class MyWindow extends View {
+	@:state var showImage:Bool = true;
+
+	function render() '
 		<HBox spacing=${10}>
+			<if ${showImage}>
+				<Image src="windowsprite.png"/>
+			</if>
 			<VBox spacing=${5}>
-				<Button label="Press me" onClick=${trace("YO")}/>
-				<Button label="Touch me" onClick=${trace("Ah")}/>
+				<Button label="Press me" onClick=${showImage = !showImage}/>
 			</VBox>
-			<Button label="Press me" onClick=${trace("YO")}/>
 		</HBox>
-	);
+	';
+}
+
+function main() {
+	flash.Lib.current.stage.scaleMode = NO_SCALE;
+	Renderer.mount(flash.Lib.current, <MyWindow/>);
+}
+
+function loadImage(url:String):Future<BitmapData> {
+	return new Future(function(trigger) {
+		var loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(e:Event) {
+			var bitmap = cast(loader.content, Bitmap);
+			trigger(bitmap.bitmapData);
+		});
+		loader.load(new URLRequest(url));
+		return () -> try loader.close() catch (_) {};
+	});
 }
