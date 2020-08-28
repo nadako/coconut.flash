@@ -20,8 +20,8 @@ class BitmapRenderer implements NodeType<BitmapAttr, Bitmap> {
 
 	static final instance:NodeType<BitmapAttr, Bitmap> = new BitmapRenderer();
 
-	public static inline function fromHxx(hxxMeta:{?ref:Ref<Bitmap>, ?key:Key}, attr:BitmapAttr, ?children:Children):RenderResult {
-		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
+	public static inline function fromHxx(hxxMeta:{?ref:Ref<Bitmap>, ?key:Key}, attr:BitmapAttr):RenderResult {
+		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, null);
 	}
 
 	public function create(a:BitmapAttr):Bitmap {

@@ -23,8 +23,8 @@ class TextFieldRenderer implements NodeType<TextFieldAttr, TextField> {
 
 	static final instance:NodeType<TextFieldAttr, TextField> = new TextFieldRenderer();
 
-	public static inline function fromHxx(hxxMeta:{?ref:Ref<TextField>, ?key:Key}, attr:TextFieldAttr, ?children:Children):RenderResult {
-		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
+	public static inline function fromHxx(hxxMeta:{?ref:Ref<TextField>, ?key:Key}, attr:TextFieldAttr):RenderResult {
+		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, null);
 	}
 
 	public function create(a:TextFieldAttr):TextField {
