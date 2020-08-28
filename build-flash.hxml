@@ -1,0 +1,4 @@
+build-each.hxml
+--swf bin/main.swf
+--swf-version 11
+--cmd start bin/main.swf

@@ -6,7 +6,5 @@
 --library coconut.diffing
 --macro coconut.flash.macros.Setup.run()
 
+--define no-deprecation-warnings
 --debug
---swf bin/main.swf
---swf-version 11
---cmd start bin/main.swf
