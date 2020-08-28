@@ -6,5 +6,7 @@
 --library coconut.diffing
 --macro coconut.flash.macros.Setup.run()
 
+--debug
 --swf bin/main.swf
+--swf-version 11
 --cmd start bin/main.swf
