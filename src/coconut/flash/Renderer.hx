@@ -31,13 +31,9 @@ private class FlashCursor implements Cursor<DisplayObject> {
 
 	public function insert(real:DisplayObject):Bool {
 		var insert = real.parent != container;
-		// if the node was inserted anew or it was reposition from the back of our current pointer,
-		// increase the child index so we're pointing to the same node as before
-		var increaseChildIndex = if (insert) true else container.getChildIndex(real) > childIndex;
 		container.addChildAt(real, childIndex);
-		if (increaseChildIndex) {
-			childIndex++;
-		}
+		// always increment child index, because it can't happen if we reinsert a node that already was before our pointer, according to Juraj ^^
+		childIndex++;
 		return insert;
 	}
 
