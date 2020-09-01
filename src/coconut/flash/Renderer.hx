@@ -30,12 +30,15 @@ private class FlashCursor implements Cursor<DisplayObject> {
 	}
 
 	public function insert(real:DisplayObject):Bool {
-		var inserted = real.parent != container;
+		var insert = real.parent != container;
+		// if the node was inserted anew or it was reposition from the back of our current pointer,
+		// increase the child index so we're pointing to the same node as before
+		var increaseChildIndex = if (insert) true else container.getChildIndex(real) > childIndex;
 		container.addChildAt(real, childIndex);
-		if (inserted) {
+		if (increaseChildIndex) {
 			childIndex++;
 		}
-		return inserted;
+		return insert;
 	}
 
 	public function step():Bool {
@@ -56,7 +59,7 @@ private class FlashCursor implements Cursor<DisplayObject> {
 		}
 	}
 
-	public function current():DisplayObject {
+	public function current():Null<DisplayObject> {
 		if (childIndex >= container.numChildren) {
 			return null;
 		} else {
