@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/innogames/openfl#be44076c2d3506f451ce55ab026983c25b76c57c" into openfl/7.1.1/github/be44076c2d3506f451ce55ab026983c25b76c57c
--cp ${HAXE_LIBCACHE}/openfl/7.1.1/github/be44076c2d3506f451ce55ab026983c25b76c57c/src
+# @install: lix --silent download "gh://github.com/innogames/openfl#c26fc1a73a6434aded4497dd51bc2757f7081d91" into openfl/7.1.1/github/c26fc1a73a6434aded4497dd51bc2757f7081d91
+-cp ${HAXE_LIBCACHE}/openfl/7.1.1/github/c26fc1a73a6434aded4497dd51bc2757f7081d91/src
 -D openfl=7.1.1

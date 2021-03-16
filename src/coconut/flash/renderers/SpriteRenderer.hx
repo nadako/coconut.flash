@@ -1,23 +1,26 @@
 package coconut.flash.renderers;
 
+import coconut.diffing.Factory;
 import coconut.diffing.Key;
-import coconut.diffing.NodeType;
-import coconut.diffing.VNode;
+import coconut.diffing.TypeId;
 import coconut.flash.renderers.Basic;
 import coconut.ui.Ref;
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 
 typedef SpriteAttr = DisplayObjectContainerAttr & {
 	@:optional var buttonMode:Bool;
 }
 
-class SpriteRenderer implements NodeType<SpriteAttr, Sprite> {
+class SpriteRenderer implements Factory<SpriteAttr, DisplayObject, Sprite> {
+	public final type = new TypeId();
+
 	function new() {}
 
-	static final instance:NodeType<SpriteAttr, Sprite> = new SpriteRenderer();
+	static final instance = new SpriteRenderer();
 
 	public static inline function fromHxx(hxxMeta:{?ref:Ref<Sprite>, ?key:Key}, attr:SpriteAttr, ?children:Children):RenderResult {
-		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, cast children);
+		return instance.vnode(attr, hxxMeta.key, hxxMeta.ref, children);
 	}
 
 	public function create(a:SpriteAttr):Sprite {

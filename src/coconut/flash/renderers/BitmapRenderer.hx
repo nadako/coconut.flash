@@ -1,12 +1,13 @@
 package coconut.flash.renderers;
 
+import coconut.diffing.Factory;
 import coconut.diffing.Key;
-import coconut.diffing.NodeType;
-import coconut.diffing.VNode;
+import coconut.diffing.TypeId;
 import coconut.flash.renderers.Basic;
 import coconut.ui.Ref;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.PixelSnapping;
 
 typedef BitmapAttr = DisplayObjectAttr & {
@@ -15,13 +16,15 @@ typedef BitmapAttr = DisplayObjectAttr & {
 	@:optional var smoothing:Bool;
 }
 
-class BitmapRenderer implements NodeType<BitmapAttr, Bitmap> {
+class BitmapRenderer implements Factory<BitmapAttr, DisplayObject, Bitmap> {
+	public final type = new TypeId();
+
 	function new() {}
 
-	static final instance:NodeType<BitmapAttr, Bitmap> = new BitmapRenderer();
+	static final instance = new BitmapRenderer();
 
 	public static inline function fromHxx(hxxMeta:{?ref:Ref<Bitmap>, ?key:Key}, attr:BitmapAttr):RenderResult {
-		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, null);
+		return instance.vnode(attr, hxxMeta.key, hxxMeta.ref);
 	}
 
 	public function create(a:BitmapAttr):Bitmap {

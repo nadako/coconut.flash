@@ -1,10 +1,11 @@
 package coconut.flash.renderers;
 
+import coconut.diffing.Factory;
 import coconut.diffing.Key;
-import coconut.diffing.NodeType;
-import coconut.diffing.VNode;
+import coconut.diffing.TypeId;
 import coconut.flash.renderers.Basic;
 import coconut.ui.Ref;
+import flash.display.DisplayObject;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
@@ -18,13 +19,15 @@ typedef TextFieldAttr = InteractiveObjectAttr & {
 	@:optional var selectable:Bool;
 }
 
-class TextFieldRenderer implements NodeType<TextFieldAttr, TextField> {
+class TextFieldRenderer implements Factory<TextFieldAttr, DisplayObject, TextField> {
+	public final type = new TypeId();
+
 	function new() {}
 
-	static final instance:NodeType<TextFieldAttr, TextField> = new TextFieldRenderer();
+	static final instance = new TextFieldRenderer();
 
 	public static inline function fromHxx(hxxMeta:{?ref:Ref<TextField>, ?key:Key}, attr:TextFieldAttr):RenderResult {
-		return cast VNative(instance, hxxMeta.ref, hxxMeta.key, attr, null);
+		return instance.vnode(attr, hxxMeta.key, hxxMeta.ref);
 	}
 
 	public function create(a:TextFieldAttr):TextField {

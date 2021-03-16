@@ -10,10 +10,6 @@ abstract RenderResult(VNode<DisplayObject>) to VNode<DisplayObject> from VNode<D
 	}
 
 	@:from static function ofNode(n:DisplayObject):RenderResult {
-		return VNativeInst(n);
-	}
-
-	@:from static function ofView(v:View):RenderResult {
-		return VWidgetInst(v);
+		return VNode.embed(n);
 	}
 }
